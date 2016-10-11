@@ -74,7 +74,7 @@ module AjaxDatatablesRails
 
     def sort_records(records)
       sort_by = []
-      params[:order].each_value do |item|
+      params[:order].values.each do |item|
         sort_by << "#{sort_column(item)} #{sort_direction(item)}"
       end
       records.order(sort_by.join(", "))
@@ -148,7 +148,7 @@ module AjaxDatatablesRails
 
     def typecast
       case config.db_adapter
-      when :oracle then 'VARCHAR2(4000)'  
+      when :oracle then 'VARCHAR2(4000)'
       when :pg then 'VARCHAR'
       when :mysql2 then 'CHAR'
       when :sqlite3 then 'TEXT'
@@ -194,7 +194,7 @@ module AjaxDatatablesRails
 
     def generate_sortable_displayed_columns
       @sortable_displayed_columns = []
-      params[:columns].each_value do |column|
+      params[:columns].values.each do |column|
         @sortable_displayed_columns << column[:data] if column[:orderable] == 'true'
       end
       @sortable_displayed_columns
